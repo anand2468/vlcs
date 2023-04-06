@@ -1,0 +1,45 @@
+*{
+    margin: 0px;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+section#titles{
+    text-align: center;
+    width: 90%;
+    margin: auto;
+}
+#titles h1{
+    font-size: 100px;
+
+}
+
+section h4{
+    margin-bottom: 25px;
+}
+#mainlogo{
+    height :75px;
+}
+
+nav{
+    margin-bottom: 100px;
+    background-color: #8400b0;
+    color: white;
+    font-size: xx-large;
+}
+nav #mainlogo{
+    height: 55px;
+}
+
+#options{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2%;
+}
+#options a{
+    height: 100px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #8400b0;
+    text-decoration: none;
+}
