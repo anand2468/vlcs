@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inbox</title>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main></main>
+    <div id="message_view" style="height:500px"></div>
+    <div id="message_text">
+        <input type="text" name="message" id="message" placeholder="message..">
+        <input type="button" value="send" id="send_message">
+    </div>
+    
+    <div id="user_list" style="float:right; border:1px solid black; height:100px;">
+    </div>
+
+    <script src="{{url_for('static', filename='js/chat.js')}}"></script>
+    <!-- <script>
+        const socket = io.connect('http://127.0.0.1:5000');
+
+        socket.on('connect', () => {
+            console.log(`Connected with SID: ${socket.id}`);
+        });
+
+        socket.on('message', (data) => {
+            console.log(`Received message: ${data} from server with SID: ${socket.id}`);
+        });
+
+        socket.emit('message', 'Hello, server!');
+
+    </script> -->
+</body>
+</html>
