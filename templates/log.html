@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='js/cookies.js')}}"></script>
+</head>
+<body>
+    <input type="text" name="username" id="user_name" required>
+    <input type="submit" value="gooo" id="submit" onclick="validate_username()">
+    <input type="submit" value="delete cookie" id="delete_cookie" onclick="deletec()">
+    <!-- <a href="/chat" id="redir_chat"></a> -->
+
+    <script>
+
+        //validating user name
+        function validate_username() {
+            var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<> \/?]+/;
+            var name = $('#user_name').val();
+            if (format.test(name)|| name.length<8) {
+                alert('invalid user name');
+            } else {
+                setCookie('username',name);
+                window.location.replace("/chat");
+            }
+        }
+
+        //delete cookies
+        function deletec() {
+            deleteCookie('username');
+            console.log('cookie deleted');
+
+        }
+        // var name = $('#user_name').val();
+        // setCookie('username',name);
+        // document.cookie = 'username=hello'
+        // $("#submit").click(function(){
+        //     var name = $('#user_name').val();
+        //     document.cookie = 'username=hello'
+        // })
+
+        // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    </script>
+</body>
+</html>

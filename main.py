@@ -1,8 +1,9 @@
-from flask import Flask, render_template,url_for, request
+from flask import Flask, render_template,url_for, request, session, redirect
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.debug= True
+app.config['SECRET_KEY'] = 'secret-key-here'
 socketio = SocketIO(app)
 
 users=list()
@@ -10,12 +11,16 @@ users=list()
 #flask cals
 @app.route('/')
 def index():
-    return render_template('in.html')
-
+    user = request.cookies.get('username')
+    print('get cookies ', user)
+    if user:
+    #return render_template('in.html')
+        return redirect('/chat')
+    else:
+        return redirect('/log')
 @app.route('/chatrm')
 def chatrm():
     return render_template('chtrm.html')
-
 @app.route('/chatrarea')
 def chatarea():
     return render_template('chatarea.html')
@@ -24,23 +29,29 @@ def chatarea():
 def chat():
     return render_template('chat.html', users = users)
 
+@app.route('/log')
+def log():
+    return render_template('log.html')
+
 # from chat gpt
 #handle connect and disconnect
 @socketio.on('connect')
 def handle_connect():
-    emit('append_user_list',request.sid, broadcast=True)
+    users.append(request.cookies.get('username'))
+    emit('append_user_list',request.cookies.get('username'), broadcast=True)
     print(f'Client connected with SID: {request.sid}')
 @socketio.on('disconnect')
 def handle_disconnect():
-    emit('remove_user_list',request.sid, droadcast=True)
+    users.remove(request.cookies.get('username'))
+    emit('remove_user_list',request.cookies.get('username'), broadcast=True)
     print(f'Client disconnected with SID: {request.sid}')
 
 
 # send message
 @socketio.on('send_message')
-def send_message(sid, message):
-    print(sid, message)
-    emit('app_message',message)
+def send_message(message):
+    print(message, 'message and recever')
+    emit('app_message',{'message':message, 'sender':request.cookies.get('username')},broadcast=True)
 
 if __name__=='__main__':
     socketio.run(app)

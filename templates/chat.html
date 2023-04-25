@@ -15,8 +15,12 @@
         <input type="text" name="message" id="message" placeholder="message..">
         <input type="button" value="send" id="send_message">
     </div>
-    
+
     <div id="user_list" style="float:right; border:1px solid black; height:100px;">
+        {% for user in users %}
+        <!-- <input type="button" value="{{user}}"> -->
+        <p> {{user}} </p>
+        {% endfor %}
     </div>
 
     <script src="{{url_for('static', filename='js/chat.js')}}"></script>
