@@ -1,0 +1,13 @@
+/* 
+    message for large screen 
+*/
+body{
+    visibility: hidden;
+}
+
+
+#large_screen_message{
+    visibility: visible;
+    text-align: center;
+    
+}

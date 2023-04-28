@@ -27,11 +27,11 @@ def chatarea():
 
 @app.route('/chat')
 def chat():
-    return render_template('chat.html', users = users)
+    return render_template('chat.html',users = users, username = request.cookies.get('username'))
 
 @app.route('/log')
 def log():
-    return render_template('log.html')
+    return render_template('login.html')
 
 # from chat gpt
 #handle connect and disconnect
