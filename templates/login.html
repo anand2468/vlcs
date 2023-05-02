@@ -23,6 +23,15 @@
         <div id="inputs">
             <h4>username:</h4>
             <input type="text" name="username" id="user_name" required>
+            <h4>select progile picture</h4>
+            <div id="select_profiles">
+                {% for image in images %}
+                    <input type="radio" name="profile" id="{{os.path.splitext(image)[0]}}">
+                    <label for="{{os.path.splitext(image)[0]}}">
+                        <img src="{{url_for('static',filename='logos/profiles/'+image)}}" height="30px" width="30px">
+                    </label>
+                {% endfor %}
+            </div>
         </div>
         <div id="submit">
             <input type="submit" value="gooo" id="submit" onclick="validate_username()">
@@ -35,10 +44,12 @@
         function validate_username() {
             var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<> \/?]+/;
             var name = $('#user_name').val();
-            if (format.test(name) || name.length < 8) {
-                alert('invalid user name');
+            var selected = document.querySelector('input[name="profile"]:checked');
+            if (format.test(name) || name.length < 8 || selected==null) {
+                alert('invalid user name or select profile pic');
             } else {
                 setCookie('username', name);
+                setCookie('profile', selected.id);
                 window.location.replace("/chat");
             }
         }
@@ -49,15 +60,6 @@
             console.log('cookie deleted');
 
         }
-        // var name = $('#user_name').val();
-        // setCookie('username',name);
-        // document.cookie = 'username=hello'
-        // $("#submit").click(function(){
-        //     var name = $('#user_name').val();
-        //     document.cookie = 'username=hello'
-        // })
-
-        // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     </script>
 </body>
 <h1 id="large_screen_message">this website not made for large screen</h1>

@@ -16,9 +16,10 @@
     </nav>
     <div id="user_list" style="float:right; border:1px solid black; height:100px;">
         {% for user in users %}
-        <p> {{user}} </p>
+        <a href="/chat/{{user}}"> {{user}}</a>
         {% endfor %}
     </div>
+    <h3 id="receivernm">{{recever}} </h3>
     <div id="message_view">
         <!-- messages will append here -->
     </div>
@@ -34,3 +35,14 @@
 </body>
 <h1 id="large_screen_message">this website is not made for large screen</h1>
 </html>
+
+
+
+
+<!-- 
+        <div id="user_list" style="float:right; border:1px solid black; height:100px;">
+        {% for user in users %}
+        <p> {{user}} </p>
+        {% endfor %}
+    </div>
+ -->

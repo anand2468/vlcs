@@ -45,5 +45,29 @@ input[type=submit]:hover{
 }
 
 #large_screen_message{
-    visibility: hidden;
+    display: none;
 }
+
+/* profilee */
+#select_profiles{
+    height: 175px;
+    overflow-y: scroll;
+}
+
+input[type="radio"] {
+    display: none;
+  }
+  
+  label {
+    cursor: pointer;
+  }
+  
+  label img {
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  
+  input[type="radio"]:checked + label img {
+    border-color: #999;
+  }
+  /* end profilee */

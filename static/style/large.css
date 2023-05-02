@@ -2,7 +2,7 @@
     message for large screen 
 */
 body{
-    visibility: hidden;
+    display: none;
 }
 
 

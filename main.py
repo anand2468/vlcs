@@ -1,12 +1,14 @@
 from flask import Flask, render_template,url_for, request, session, redirect
 from flask_socketio import SocketIO, emit
+import os
 
 app = Flask(__name__)
 app.debug= True
 app.config['SECRET_KEY'] = 'secret-key-here'
 socketio = SocketIO(app)
 
-users=list()
+online_users=list()
+userlist = dict()
 
 #flask cals
 @app.route('/')
@@ -25,24 +27,38 @@ def chatrm():
 def chatarea():
     return render_template('chatarea.html')
 
-@app.route('/chat')
-def chat():
-    return render_template('chat.html',users = users, username = request.cookies.get('username'))
+@app.route('/chat/',defaults={'user':None})
+@app.route('/chat/<user>')
+def chat(user):
+    if user == None:
+        return render_template('chat.html',users = online_users, username = request.cookies.get('username'))
+    else:
+        return render_template('chat.html',users = online_users, username = request.cookies.get('username'), recever = user)
 
 @app.route('/log')
 def log():
-    return render_template('login.html')
+    images = os.listdir('static/logos/profiles')
+    return render_template('login.html', images = images, os=os)
 
 # from chat gpt
 #handle connect and disconnect
 @socketio.on('connect')
 def handle_connect():
-    users.append(request.cookies.get('username'))
-    emit('append_user_list',request.cookies.get('username'), broadcast=True)
+    if request.cookies.get('username') not in userlist:
+        userlist[request.cookies.get('username')]={
+            'sid':request.sid,
+            'profile': request.cookies.get('profile')
+        }
+    else:
+        userlist[request.cookies.get('username')]['sid'] = request.sid
+    print(userlist)
+    online_users.append(request.cookies.get('username'))
+    emit('append_user_list',{'username':request.cookies.get('username'), 'link':'/chat/'+request.cookies.get('username')}, broadcast=True)
     print(f'Client connected with SID: {request.sid}')
 @socketio.on('disconnect')
 def handle_disconnect():
-    users.remove(request.cookies.get('username'))
+    userlist[request.cookies.get('username')]['sid']=None
+    online_users.remove(request.cookies.get('username'))
     emit('remove_user_list',request.cookies.get('username'), broadcast=True)
     print(f'Client disconnected with SID: {request.sid}')
 
@@ -52,6 +68,14 @@ def handle_disconnect():
 def send_message(message):
     print(message, 'message and recever')
     emit('app_message',{'message':message, 'sender':request.cookies.get('username')},broadcast=True)
+
+#sends messages privates
+@socketio.on('send_message_privately')
+def send_message_privately(message):
+    print('message and rec ',message)
+    recv = message['receiver'].strip()
+    receiverid = userlist[recv]['sid']
+    emit('send_message_to',message, to=receiverid)
 
 if __name__=='__main__':
     socketio.run(app)

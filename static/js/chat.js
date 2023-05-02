@@ -18,25 +18,37 @@ socket.on('disconnect', () => {
 
 //appends and remove new user details
 socket.on('append_user_list',function(data){
-    console.log(`append user list ${data}`);
-    $('#user_list').append($('<p>').text(data));
+    console.log(`append user list ${data['username']}`);
+    $('#user_list').append($('<a>',{
+        href: data.link
+    }).text(data.username));
 });
 socket.on('remove_user_list',function(data){
     console.log(data);
-    $(`p:contains("${data}")`).remove();
+    $(`a:contains("${data}")`).remove();
 });
 
 
 //send the message to the server
+// $('#send_message').click(function(){
+//     var message = $("#message").val();
+//     socket.emit('send_message', message);
+//     $('#message').val('');
+// });
+
 $('#send_message').click(function(){
-    var message = $("#message").val();
-    socket.emit('send_message', message);
+    var message = $('#message').val();
+    socket.emit('send_message_privately',{'message':message, 'receiver':$('#receivernm').text()});
     $('#message').val('');
-});
+})
 
 // write the message in the page
 socket.on('app_message',function(data) {
     console.log(data);
+    $('#message_view').append($('<p>').text(`${data.sender}: ${data['message']}`));
+});
+
+socket.on('send_message_to', function(data){
     $('#message_view').append($('<p>').text(`${data.sender}: ${data['message']}`));
 });
 
