@@ -17,28 +17,31 @@ def index():
     print('get cookies ', user)
     if user:
     #return render_template('in.html')
-        return redirect('/chat')
+        return redirect('/home')
     else:
         return redirect('/log')
-@app.route('/chatrm')
-def chatrm():
-    return render_template('chtrm.html')
-@app.route('/chatrarea')
-def chatarea():
-    return render_template('chatarea.html')
 
+
+
+#chat
 @app.route('/chat/',defaults={'user':None})
 @app.route('/chat/<user>')
 def chat(user):
     if user == None:
-        return render_template('chat.html',users = online_users, username = request.cookies.get('username'))
+        return render_template('chat.html',users = online_users, stat = 'des')
     else:
-        return render_template('chat.html',users = online_users, username = request.cookies.get('username'), recever = user)
+        return render_template('chat.html',users = online_users)
+
+        
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 @app.route('/log')
 def log():
     images = os.listdir('static/logos/profiles')
     return render_template('login.html', images = images, os=os)
+#end chat
 
 # from chat gpt
 #handle connect and disconnect

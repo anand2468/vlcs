@@ -1,11 +1,10 @@
-// socket = io();
-// const socket = io.connect('http://127.0.0.1:5000',{
-//     query: {
-//         username: prompt(username)
-//       }
-    
-// });
-const socket = io.connect('http://127.0.0.1:5000');
+var socket;
+if (checkCookie("username")){
+    socket = io.connect('http://127.0.0.1:5000');
+}
+else{
+    window.location.replace("/log");
+}
 
 //connect and disconnect handlers
 socket.on('connect', () => {
