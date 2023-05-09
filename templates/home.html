@@ -14,14 +14,14 @@
 <body>
     <nav>
         <div>
-            <img src="{{ url_for('static', filename='logos/profiles/23.png') }}" alt="profile" height="32px">
+            <img  alt="profile" id="profile_pic" height="32px">
             <h1 class="username">
             </h1>
         </div>
         <ul>
           <li><a href="#" style="background-color: black;">Home</a></li>
           <li><a href="/chat">chat box</a></li>
-          <li><a href="#">Chat rooms</a></li>
+          <li><a href="/chatbox">Chat rooms</a></li>
           <li><a href="#">Profile</a></li>
         </ul>
       </nav>
@@ -30,9 +30,14 @@
     </main>
     <script src=""></script>
     <script>
-        $(document).ready(function(){
+        if (!checkCookie("username")) {
+            window.location.replace("/log");
+        }
+        $(document).ready(function () {
             $('h1.username').html(getCookie('username'));
         });
+        var profile = getCookie('profile');
+        $('img#profile_pic').attr('src', `static/logos/profiles/${profile}.png`);
     </script>
 </body>
 </html>

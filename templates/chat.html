@@ -12,26 +12,37 @@
 </head>
 <body>
     <nav>
-        <div>
-            <img src="{{ url_for('static', filename='logos/profiles/23.png') }}" alt="profile" height="32px">
-            <h1 class="username">
-            </h1>
-        </div>
         <ul>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/chat" style="background-color: black;">chat box</a></li>
-          <li><a href="#">Chat rooms</a></li>
-          <li><a href="#">Profile</a></li>
+          <li><a href="/chatbox" style="font-size: 1.5em;">&lt;</a></li>
+          <li><a href="#">
+            <h1 class="recever_username">
+            </h1>
+          </a></li>
         </ul>
       </nav>
-    <div id="user_list" style="float:right; border:1px solid black; height:100px;">
-        {% for user in users %}
-        <a href="/chat/{{user}}"> {{user}}</a>
-        {% endfor %}
-    </div>
     <h3 id="receivernm">{{recever}} </h3>
     <div id="message_view">
         <!-- messages will append here -->
+        <section class="sended_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="receieved_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="sended_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="receieved_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="receieved_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
     </div>
 
     <!-- inputing messages -->

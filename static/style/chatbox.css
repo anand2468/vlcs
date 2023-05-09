@@ -2,12 +2,19 @@
     margin: 0px;
     padding: 0px;
 }
+body{
+    padding-top: 50px;
+}
 /* navigation bar */
 nav {
     background-color: #333;
     display: flex;
     justify-content: space-between;
     align-items: end;
+    position: fixed;
+    top: 0%;
+    width: -webkit-fill-available;
+    height: 50px;
   }
   nav div{
     padding: 5px;
@@ -21,14 +28,10 @@ nav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    width: -webkit-fill-available;
   }
-  ul li:first-child{
-    float: left;
-    position: absolute;
-  }
+  
   li {
-    width: -webkit-fill-availabe;
+    float: left;
   }
   
   li a {
@@ -46,17 +49,43 @@ nav {
 
 /* end nav bar */
 
-/* messagees */
+/* userlist */
+#user_list{
+    color: #444;
+    overflow-y: scroll;
+}
+#user_list article{
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+#user_list article a{
+    text-decoration: none;
+    color: #444;
+    display: flex;
+    width: -webkit-fill-available;
+}
+#user_list article a img{
+    margin-right: 10px;
+    padding: 2px;
+    height: 34px;
+    border: 1px solid #aaa;
+}
+#user_list article a h1{
+    align-self: center;
+}
+/* end user list */
+
 #message_view{
     height: 500px;
     overflow-y: scroll;
 }
-/* #message_view p{
-    border-bottom: 1.5px solid black;
+#message_view p{
+    border: 1px solid black;
+    border-radius: 5px;
     width: fit-content;
-    padding: 5px;
-    margin-bottom: 2.5px;
-} */
+    padding: 0.5px 5px;
+    margin-bottom: 1px;
+}
 
 div#message_text{
     position: absolute;
@@ -80,16 +109,3 @@ input[type=text]:focus{
 input[type=button]{
     width: 50px;
 }
-
-/* end messages */
-#message_view .sended_text{
-  border: 1px solid #333;
-  text-align: right;
-  width: 50%;
-  margin-left: auto;
-}
-#message_view .receieved_text{
-  width: 60%;
-  border: 1px solid #333;
-}
-

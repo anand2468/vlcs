@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inbox</title>
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="{{url_for('static',filename='style/chatbox.css')}}">
+    <link rel="stylesheet" media="screen and (min-width:601px)" href="{{url_for('static',filename='style/large.css')}}">
+    <script src="{{url_for('static',filename = 'js/jquery-1.11.1.js')}}"></script>
+    <script src="{{url_for('static', filename='js/socket.io.js')}}"></script>
+
+</head>
+<body>
+    <nav>
+        <div>
+            <img src="{{ url_for('static', filename='logos/profiles/23.png') }}" alt="profile" height="32px">
+            <h1 class="username">
+            </h1>
+        </div>
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/chat">chat box</a></li>
+          <li><a href="/chatbox" style="background-color: black;">Chat rooms</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </nav>
+
+    <div id="user_list">
+        <!-- messages will append here -->
+        <article>
+            <a href="#">
+                <img src="{{url_for('static', filename='logos/profiles/23.png')}}" height="34px" alt="">
+                <h1 >user1</h1>
+            </a>
+        </article>
+        <article>
+            <a href="#">
+                <img src="{{url_for('static', filename='logos/profiles/23.png')}}" height="34px" alt="">
+                <h1 >user1</h1>
+            </a>
+        </article>
+    </div>
+
+    <script src="{{url_for('static', filename='js/cookies.js')}}"></script>
+    <script src="{{url_for('static', filename='js/chatbox.js')}}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('h1.username').html(getCookie('username'));
+        });
+    </script>
+</body>
+</html>

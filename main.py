@@ -24,13 +24,16 @@ def index():
 
 
 #chat
-@app.route('/chat/',defaults={'user':None})
-@app.route('/chat/<user>')
+@app.route('/chat/t/<user>')
 def chat(user):
     if user == None:
         return render_template('chat.html',users = online_users, stat = 'des')
     else:
         return render_template('chat.html',users = online_users)
+
+@app.route('/chatbox/')
+def chatbox():
+    return render_template('chatbox.html')
 
         
 @app.route('/home')
@@ -47,20 +50,21 @@ def log():
 #handle connect and disconnect
 @socketio.on('connect')
 def handle_connect():
-    if request.cookies.get('username') not in userlist:
-        userlist[request.cookies.get('username')]={
+    username = request.cookies.get('username')
+    profile = request.cookies.get('profile')
+    if username not in userlist:
+        userlist[username]={
             'sid':request.sid,
             'profile': request.cookies.get('profile')
         }
     else:
-        userlist[request.cookies.get('username')]['sid'] = request.sid
+        userlist[username]['sid'] = request.sid
     print(userlist)
-    online_users.append(request.cookies.get('username'))
-    emit('append_user_list',{'username':request.cookies.get('username'), 'link':'/chat/'+request.cookies.get('username')}, broadcast=True)
+    online_users.append(username)
+    emit('append_user_list',{'username':username, 'link':'/chat/t/'+username, 'profile':profile}, broadcast=True)
     print(f'Client connected with SID: {request.sid}')
 @socketio.on('disconnect')
 def handle_disconnect():
-    userlist[request.cookies.get('username')]['sid']=None
     online_users.remove(request.cookies.get('username'))
     emit('remove_user_list',request.cookies.get('username'), broadcast=True)
     print(f'Client disconnected with SID: {request.sid}')
@@ -75,11 +79,11 @@ def send_message(message):
 #sends messages privates
 @socketio.on('send_message_privately')
 def send_message_privately(message):
-    print('message and rec ',message)
+    message['sender'] = request.cookies.get('username')
     recv = message['receiver'].strip()
     receiverid = userlist[recv]['sid']
     emit('send_message_to',message, to=receiverid)
-
+    print('message and rec ',message,type(message),userlist[recv])
 if __name__=='__main__':
     socketio.run(app)
 
