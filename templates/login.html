@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <!-- styles -->
+    <link rel="stylesheet" media="screen and (min-width:601px)" href="{{url_for('static',filename='style/large.css')}}">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="{{url_for('static',filename='style/login600.css')}}">
+    <!-- scripts -->
+    <script src="{{url_for('static',filename = 'js/jquery-1.11.1.js')}}"></script>
+    <script src="{{url_for('static', filename='js/socket.io.js')}}"></script>
+    <script src="{{url_for('static',filename='js/cookies.js')}}"></script>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Welcome</h1>
+        <div id="inputs">
+            <h4>username:</h4>
+            <input type="text" name="username" id="user_name" required>
+            <h4>select progile picture</h4>
+            <div id="select_profiles">
+                {% for image in images %}
+                    <input type="radio" name="profile" id="{{os.path.splitext(image)[0]}}">
+                    <label for="{{os.path.splitext(image)[0]}}">
+                        <img src="{{url_for('static',filename='logos/profiles/'+image)}}" height="30px" width="30px">
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="submit">
+            <input type="submit" value="gooo" id="submit" onclick="validate_username()">
+            <input type="submit" value="delete cookie" id="delete_cookie" onclick="deletec()">
+        </div>
+    </div>
+    <script>
+
+        //validating user name
+        function validate_username() {
+            var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<> \/?]+/;
+            var name = $('#user_name').val();
+            var selected = document.querySelector('input[name="profile"]:checked');
+            if (format.test(name) || name.length < 8 || selected==null) {
+                alert('invalid user name or select profile pic');
+            } else {
+                setCookie('username', name);
+                setCookie('profile', selected.id);
+                window.location.replace("/home");
+            }
+        }
+
+        //delete cookies
+        function deletec() {
+            deleteCookie('username');
+            console.log('cookie deleted');
+
+        }
+    </script>
+</body>
+</html>

@@ -15,7 +15,7 @@ function deleteCookie(cname) {
     document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }
 
-//get cookies
+//get cookies returns value or "" 
 function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');
@@ -34,12 +34,8 @@ function getCookie(cname) {
 function checkCookie(cookies) {
     let user = getCookie(cookies);
     if (user != "") {
-        alert("Welcome again " + user);
-        return user;
+        return true;
     } else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-            setCookie("username", user);
-        }
+        return false;
     }
 }

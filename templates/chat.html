@@ -5,38 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>inbox</title>
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="{{url_for('static',filename='style/chat_small.css')}}">
+    <link rel="stylesheet" media="screen and (min-width:601px)" href="{{url_for('static',filename='style/large.css')}}">
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 </head>
 <body>
-    <main></main>
-    <div id="message_view" style="height:500px"></div>
+    <nav>
+        <ul>
+          <li><a href="/chatbox" style="font-size: 1.5em;">&lt;</a></li>
+          <li><a href="#">
+            <h1 class="recever_username">
+            </h1>
+          </a></li>
+        </ul>
+      </nav>
+    <h3 id="receivernm">{{recever}} </h3>
+    <div id="message_view">
+        <!-- messages will append here -->
+        <section class="sended_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="receieved_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="sended_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="receieved_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+        <section class="receieved_text">
+            <h3>username</h3>
+            <p>hello mesage</p>
+        </section>
+    </div>
+
+    <!-- inputing messages -->
     <div id="message_text">
         <input type="text" name="message" id="message" placeholder="message..">
-        <input type="button" value="send" id="send_message">
+        <input type="button" value="send" id="send_message" class="{{stat}}">
     </div>
 
-    <div id="user_list" style="float:right; border:1px solid black; height:100px;">
-        {% for user in users %}
-        <!-- <input type="button" value="{{user}}"> -->
-        <p> {{user}} </p>
-        {% endfor %}
-    </div>
-
+    <script src="{{url_for('static', filename='js/cookies.js')}}"></script>
     <script src="{{url_for('static', filename='js/chat.js')}}"></script>
-    <!-- <script>
-        const socket = io.connect('http://127.0.0.1:5000');
 
-        socket.on('connect', () => {
-            console.log(`Connected with SID: ${socket.id}`);
+    <script>
+
+        $(document).ready(function(){
+            $('h1.username').html(getCookie('username'));
+            $('.des').hide();
         });
-
-        socket.on('message', (data) => {
-            console.log(`Received message: ${data} from server with SID: ${socket.id}`);
-        });
-
-        socket.emit('message', 'Hello, server!');
-
-    </script> -->
+    </script>
 </body>
 </html>
