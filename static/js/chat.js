@@ -20,9 +20,10 @@ socket.on('disconnect', () => {
 
 $('#send_message').click(function(){
     var message = $('#message').val();
+    var img = $('<img>',{ height:40, src:'/static/logos/profiles/23.png'});
     socket.emit('send_message_privately',{'message':message, 'receiver':recever});
     $('#message').val('');
-    $('#message_view').append($('<section>',{ class:'sended_text'}).append($('<h3>').text(username), $('<p>').text(message)));
+    $('#message_view').append($('<section>',{ class:'sended_text'}).append(img,$('<h3>').text(username), $('<p>').text(message)));
 })
 
 // write the message in the page
@@ -32,7 +33,8 @@ socket.on('app_message',function(data) {
 });
 
 socket.on('send_message_to', function(data){
-    $('#message_view').append($('<section>',{ class:'receieved_text'}).append( $('<h3>').text(data.sender)  ,$('<p>').text(data['message'])));
+    var img = $('<img>',{ height:40, src:'/static/logos/profiles/23.png'});
+    $('#message_view').append($('<section>',{ class:'receieved_text'}).append( img, $('<h3>').text(data.sender)  ,$('<p>').text(data['message'])));
 });
 
 

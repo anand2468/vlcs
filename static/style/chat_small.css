@@ -1,6 +1,14 @@
 *{
     margin: 0px;
     padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
 }
 /* navigation bar */
 nav {
@@ -48,7 +56,7 @@ nav {
 
 /* messagees */
 #message_view{
-    height: 500px;
+    height: -webkit-fill-available;
     overflow-y: scroll;
 }
 /* #message_view p{
@@ -59,8 +67,8 @@ nav {
 } */
 
 div#message_text{
-    position: absolute;
-    bottom: 0px;
+    /* position: absolute;
+    bottom: 0px; */
     width: 100%;
     display: flex;
 }
@@ -82,8 +90,24 @@ input[type=button]{
 }
 
 /* end messages */
-#message_view .sended_text{
+
+#message_view section{
   border: 1px solid #333;
+  border-radius: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+#message_view .sended_text img{
+  float: right;
+  margin-left: 5px;
+}
+#message_view .receieved_text img{
+  float: left;
+  margin-right: 5px;
+}
+#message_view .sended_text{
   text-align: right;
   width: 50%;
   margin-left: auto;

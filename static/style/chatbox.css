@@ -63,16 +63,26 @@ nav {
     color: #444;
     display: flex;
     width: -webkit-fill-available;
+    overflow-x: hidden;
 }
 #user_list article a img{
     margin-right: 10px;
     padding: 2px;
     height: 34px;
     border: 1px solid #aaa;
+    border-radius: 10px;
 }
 #user_list article a h1{
     align-self: center;
 }
+#user_list a p{
+    align-self: center;
+    margin-left:5px;
+    border: 1px solid red;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 /* end user list */
 
 #message_view{

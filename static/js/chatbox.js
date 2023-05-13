@@ -19,7 +19,8 @@ socket.on('disconnect', () => {
 socket.on('append_user_list',function(data){
     var img = $('<img>', { src:`/static/logos/profiles/${data.profile}.png`});
     var h1 = $('<h1>').text(data.username);
-    $('#user_list').append($('<article>').append($('<a>',{ href:data.link}).append(img,h1)));
+    var a = $('<a>',{ href:data.link, id:data.username}).append(img,h1)
+    $('#user_list').append($('<article>').append(a));
     console.log(`append user list ${data['username']}`);
 });
 socket.on('remove_user_list',function(data){
@@ -28,7 +29,11 @@ socket.on('remove_user_list',function(data){
 
 // notifies the message
 socket.on('send_message_to', function(data){
-    $('#user_list article a').append($('<p>',{style:'margin-left:10px; border:1px solid red;'}).text(data['message']));
+    console.log(data);
+    var uid = `#user_list a#${data['sender']}`;
+    console.log('uid is '+uid);
+    var p = $('<p>').text(data['message']);
+    $(uid).append(p);
 })
 
 
