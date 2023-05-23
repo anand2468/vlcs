@@ -16,13 +16,13 @@ socket.on('disconnect', () => {
 
 
 //appends and remove new user details
-socket.on('append_user_list',function(data){
-    var img = $('<img>', { src:`/static/logos/profiles/${data.profile}.png`});
-    var h1 = $('<h1>').text(data.username);
-    var a = $('<a>',{ href:data.link, id:data.username}).append(img,h1)
-    $('#user_list').append($('<article>').append(a));
-    console.log(`append user list ${data['username']}`);
-});
+// socket.on('append_user_list',function(data){
+//     var img = $('<img>', { src:`/static/logos/profiles/${data.profile}.png`});
+//     var h1 = $('<h1>').text(data.username);
+//     var a = $('<a>',{ href:data.link, id:data.username}).append(img,h1)
+//     $('#user_list').append($('<article>').append(a));
+//     console.log(`append user list ${data['username']}`);
+// });
 socket.on('remove_user_list',function(data){
     console.log(data);
 });

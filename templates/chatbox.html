@@ -28,18 +28,14 @@
 
     <div id="user_list">
         <!-- messages will append here -->
-        <article>
-            <a href="#">
-                <img src="{{url_for('static', filename='logos/profiles/23.png')}}" height="34px" alt="">
-                <h1 >user1</h1>
-            </a>
-        </article>
-        <article>
-            <a href="#">
-                <img src="{{url_for('static', filename='logos/profiles/23.png')}}" height="34px" alt="">
-                <h1 >user1</h1>
-            </a>
-        </article>
+        {% for user in users %}
+            <article>
+                <a href="/chat/t/{{user[0]}}", id="{{user[0]}}">
+                    <img src="{{url_for('static', filename='logos/profiles/' + user[2]|string()+ '.png')}}" height="34px" alt="">
+                    <h1 >{{user[1]}}</h1>
+                </a>
+            </article>
+        {% endfor %}
     </div>
 
     <script src="{{url_for('static', filename='js/cookies.js')}}"></script>

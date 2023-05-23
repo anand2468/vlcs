@@ -42,13 +42,35 @@
         function validate_username() {
             var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<> \/?]+/;
             var name = $('#user_name').val();
-            var selected = document.querySelector('input[name="profile"]:checked');
+            var selected = document.querySelector('input[name="profile"]:checked');//profile id
             if (format.test(name) || name.length < 8 || selected==null) {
                 alert('invalid user name or select profile pic');
-            } else {
-                setCookie('username', name);
-                setCookie('profile', selected.id);
-                window.location.replace("/home");
+            } 
+            else {
+                // setCookie('username', name);
+                // setCookie('profile', selected.id);
+                // window.location.replace("/home");
+                $.ajax({
+                    url: "/createusr",
+                    type: "POST",
+                    dataType: "json",
+                    data: {"username": name, 'profile':selected.id},
+                    success: function(response) {
+                        console.log(response);
+                        if (response['message'] =='success'){
+                            setCookie('username', name);
+                            setCookie('profile', selected.id);
+                            setCookie('userid',response['userid'])
+                            window.location.replace("/home");
+                        }
+                        else{
+                            alert('username already exist');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
             }
         }
 
